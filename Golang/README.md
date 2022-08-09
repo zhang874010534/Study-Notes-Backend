@@ -102,3 +102,49 @@ func enums() {
 }
 ```
 
+### 条件语句
+
+```go
+func main() {
+   //file, err := os.ReadFile("abc.txt")
+   //if err != nil {
+   // fmt.Println(err)
+   //} else {
+   // fmt.Printf("%s\n", file)
+   //}
+   if file, err := os.ReadFile("abc.txt"); err != nil {
+      fmt.Println(err)
+   } else {
+      fmt.Printf("%s\n", file)
+   }
+}
+```
+
+### 循环语句
+
+```go
+func grade(score int) string {
+   g := ""
+   switch {
+   case score < 60:
+      g = "F"
+   case score < 70:
+      g = "C"
+   default:
+      panic(fmt.Sprintf("wrong %d", score))
+   }
+   return g
+} 
+
+// 读取文件 一行一行输出
+func printFile(filename string) {
+	open, err := os.Open(filename)
+	if err != nil {
+		return
+	}
+	scanner := bufio.NewScanner(open)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+}
+```
