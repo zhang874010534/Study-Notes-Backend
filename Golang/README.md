@@ -176,3 +176,17 @@ func sum2(numbers ...int) int {
 }
 sum2(1,2,3,4)
 ```
+
+### 指针
+
+> Go语言只有一种值传递的方式
+
+```go
+func swap(a, b *int) {
+   *b, *a = *a, *b
+}
+a, b := 3, 4
+swap(&a, &b) // 4 3
+```
+
+## 内建容器
