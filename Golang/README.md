@@ -1,4 +1,6 @@
-## 变量的定义
+## 基础语法
+
+### 变量的定义
 
 ```go
 package main
@@ -46,5 +48,57 @@ func main() {
 	fmt.Println(w, r, t)
 }
 
+```
+
+### 变量类型
+
+```go
+bool, string
+(u)init,(u)init8,(u)init16,(u)init32,(u)init64,uintptr(指针长度) 
+byte, rune(字符)
+float32,float64,complex64,complex128
+```
+
+### 常量
+
+```go
+// 常量
+func consts() {
+   const filename = "abc.txt"
+   const a, b = 3, 4
+   var c int
+   c = int(math.Sqrt(a * a + b * b))
+   fmt.Println(filename, c)
+}
+```
+
+### 枚举
+
+```go
+
+func enums() {
+   //const (
+   //  cpp = 0
+   //  java = 1
+   //  golang = 2
+   //)
+   const (
+      cpp = iota
+      java
+      golang
+   )
+
+   const (
+      b = 1 << (10 * iota)
+      kb
+      mb
+      gb
+      tb
+      pb
+   )
+
+   fmt.Println(cpp, java, golang)
+   fmt.Println(b, kb, mb, gb, tb , pb)
+}
 ```
 
