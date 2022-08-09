@@ -136,7 +136,7 @@ func grade(score int) string {
    return g
 } 
 
-// 读取文件 一行一行输出
+// 读取文件 一行一行输出 
 func printFile(filename string) {
 	open, err := os.Open(filename)
 	if err != nil {
@@ -147,4 +147,32 @@ func printFile(filename string) {
 		fmt.Println(scanner.Text())
 	}
 }
+```
+
+### 函数
+
+```go
+// 普通函数
+func sum(a int, b int) (sum int, err error) {
+	return a + b, fmt.Errorf("error %d", a)
+}
+// 某一项不需要可以用_
+q, _ := sum(1, 2)
+
+i, err := sum(1, 2)
+if err != nil {
+    return
+}
+
+// 接收多个参数 可变参数列表
+func sum2(numbers ...int) int {
+	fmt.Println(numbers)
+	s := 0
+    // 当while来使用
+	for i := range numbers {
+		s += numbers[i]
+	}
+	return s
+}
+sum2(1,2,3,4)
 ```
