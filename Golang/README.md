@@ -190,3 +190,59 @@ swap(&a, &b) // 4 3
 ```
 
 ## 内建容器
+
+### 数组
+
+```go
+func main() {
+   var arr1 [5]int
+   arr2 := [3]int{1, 2, 3}
+   arr3 := [...]int{2, 4, 6,0}
+   var grid [4][5]int
+   fmt.Println(arr1, arr2, arr3, grid)
+   for i, v := range arr3 {
+      fmt.Println(i, v)
+   }
+}
+
+
+// 会进行拷贝 所以原始的值不会被修改
+func printArray(arr [3]int) {
+	arr[0] = 100
+	for i, v := range arr {
+		fmt.Println(i, v)
+	}
+}
+
+func main() {
+	arr1 := [3]int{1, 2, 3}
+	printArray(arr1)
+    // 0 100
+    // 1 2
+    // 2 3
+	fmt.Println(arr1) // [1, 2, 3]
+}
+```
+
+### 切片
+
+> slice本身是没有数据的，是对底层array的一个view
+
+```go
+func printArray(arr []int) {
+	arr[0] = 100
+	for i, v := range arr {
+		fmt.Println(i, v)
+	}
+}
+
+func main() {
+	arr1 := []int{1, 2, 3}
+    printArray(arr1[:])
+    // 0 100
+    // 1 2
+    // 2 3
+	fmt.Println(arr1) // [100, 2, 3]
+}
+```
+
