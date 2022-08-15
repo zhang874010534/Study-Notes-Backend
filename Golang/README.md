@@ -330,3 +330,52 @@ s3 := make([]int, 16, 32)
 s2 = append(s2[:3], s2[4:]...)
 ```
 
+### Map
+
+```go
+m := map[string]string{
+    "name":  "zhangCe",
+    "place": "demo",
+}
+fmt.Println(m) // map[name:zhangCe]
+
+m2 := make(map[string]int)
+fmt.Println(m2)
+for k, v := range m {
+    fmt.Println(k, v)
+}
+// 判断能否取到值
+if name, ok := m["name"]; ok {
+    fmt.Println(name)
+}
+// 删除
+delete(m, "name")
+fmt.Println(m)
+```
+
+### 字符串
+
+```go
+s := "Yes我爱世界!"
+for i, v := range s {
+   fmt.Printf("(%d %X)", i, v)
+}
+fmt.Println(utf8.RuneCountInString(s)) // 8
+bytes := []byte(s)
+for len(bytes) > 0 {
+   // 一个一个解码
+   ch, size := utf8.DecodeRune(bytes)
+   bytes = bytes[size:]
+   fmt.Printf("%c", ch)
+}
+fmt.Println(bytes)
+
+// 直接转
+for i, v := range []rune(s) {
+   fmt.Printf("(%d %c)", i, v)
+}
+```
+
+## 面向"对象"
+
+> go语言只有封装，不支持继承和多态
