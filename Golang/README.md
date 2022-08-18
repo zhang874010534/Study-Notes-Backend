@@ -379,3 +379,55 @@ for i, v := range []rune(s) {
 ## 面向"对象"
 
 > go语言只有封装，不支持继承和多态
+
+### 结构体和方法
+
+```go
+type treeNode struct {
+   value       int
+   left, right *treeNode
+}
+
+func (node *treeNode) print() {
+   fmt.Print(node.value)
+}
+
+// 接收者 使用指针作为方法的接收者 只有使用指针才可以改变结构内容
+func (node *treeNode) setValue(value int) {
+   node.value = value
+}
+
+func (node *treeNode) traverse() {
+   if node == nil {
+      return
+   }
+   node.left.traverse()
+   node.print()
+   node.right.traverse()
+}
+
+
+func createNode(value int) *treeNode {
+   return &treeNode{value: value}
+}
+
+func main() {
+   var root treeNode
+   root = treeNode{value: 3}
+   root.left = &treeNode{}
+   root.right = &treeNode{5, nil, nil}
+   root.right.left = new(treeNode)
+   root.left.right = createNode(2)
+
+   root.print() // 3
+   root.right.left.setValue(4)
+   root.right.left.print() // 4
+   //fmt.Println(root)
+   //nodes := []treeNode{
+   // {value: 3},
+   // {},
+   // {6, nil, &root},
+   //}
+   //fmt.Println(nodes)
+}
+```
