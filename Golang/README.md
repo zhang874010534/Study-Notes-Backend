@@ -383,21 +383,25 @@ for i, v := range []rune(s) {
 ### 结构体和方法
 
 ```go
-type treeNode struct {
+package tree
+
+import "fmt"
+
+type Node struct {
    value       int
    left, right *treeNode
 }
 
-func (node *treeNode) print() {
+func (node *Node) print() {
    fmt.Print(node.value)
 }
 
 // 接收者 使用指针作为方法的接收者 只有使用指针才可以改变结构内容
-func (node *treeNode) setValue(value int) {
+func (node *Node) setValue(value int) {
    node.value = value
 }
 
-func (node *treeNode) traverse() {
+func (node *Node) traverse() {
    if node == nil {
       return
    }
@@ -408,15 +412,15 @@ func (node *treeNode) traverse() {
 
 
 func createNode(value int) *treeNode {
-   return &treeNode{value: value}
+   return &Node{value: value}
 }
 
 func main() {
-   var root treeNode
-   root = treeNode{value: 3}
-   root.left = &treeNode{}
-   root.right = &treeNode{5, nil, nil}
-   root.right.left = new(treeNode)
+   var root Node
+   root = Node{value: 3}
+   root.left = &Node{}
+   root.right = &Node{5, nil, nil}
+   root.right.left = new(Node)
    root.left.right = createNode(2)
 
    root.print() // 3
@@ -430,4 +434,72 @@ func main() {
    //}
    //fmt.Println(nodes)
 }
+```
+
+### 扩展已有类型
+
+#### 组合
+
+```go
+package main
+import "golang/tree" // 上面的就是tree
+type myTreeNode struct {
+   node *tree.Node
+}
+
+func (myNode *myTreeNode) postOrder() {
+   if myNode == nil || myNode.node == nil {
+      return
+   }
+   node := myTreeNode{myNode.node.Left}
+   node.postOrder()
+}
+
+func main() {
+    var root tree.Node
+    root = tree.Node{Value: 3}
+    root.Left = &tree.Node{}
+    
+    node := myTreeNode{&root}
+    node.postOrder()
+}
+```
+
+#### 别名
+
+```go
+package queue
+
+type Queue []int
+
+func (q *Queue) Push(v int) {
+   *q = append(*q, v)
+}
+
+func (q *Queue) Pop() int {
+   head := (*q)[0]
+   *q = (*q)[1:]
+   return head
+}
+
+func (q *Queue) IsEmpty() bool {
+   return len(*q) == 0
+}
+```
+
+```go
+package main
+
+import (
+	"fmt"
+	"golang/queue"
+)
+
+func main() {
+	q := queue.Queue{1}
+	q.Push(2)
+	q.Push(3)
+	fmt.Println(q)
+}
+
 ```
