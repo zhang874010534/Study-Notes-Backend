@@ -503,3 +503,24 @@ func main() {
 }
 
 ```
+
+## 面向接口
+
+### duck typing
+
+```go
+package main
+
+import "fmt"
+
+type Retriever interface {
+   Get(url string) string
+}
+func download(r Retriever) string {
+   return r.Get("alipay.com")
+}
+func main() {
+   var r Retriever
+   fmt.Println(download(r))
+}
+```
